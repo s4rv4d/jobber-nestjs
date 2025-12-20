@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor(config: ConfigService) {
     const adapter = new PrismaPg({
-      connectionString: config.get<string>('AUTH_DATABASE_URL') || 'TEST_DB',
+      connectionString: config.get<string>('AUTH_DATABASE_URL'),
     });
     super({ adapter });
   }
