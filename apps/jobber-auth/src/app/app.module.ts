@@ -15,6 +15,11 @@ import { AuthModule } from './auth/auth.module';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      playground: {
+        settings: {
+          'request.credentials': 'same-origin',
+        },
+      },
       autoSchemaFile: true,
       context: ({ req, res }) => ({ req, res }), // pass express req and res to context
     }),
