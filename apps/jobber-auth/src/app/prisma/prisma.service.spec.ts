@@ -15,6 +15,9 @@ describe('PrismaService', () => {
             get: () => {
               return null;
             },
+            getOrThrow: () => {
+              return null;
+            },
           },
         },
       ],
