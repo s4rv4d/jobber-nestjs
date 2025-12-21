@@ -1,7 +1,7 @@
 {
   "name": "jobber-jobs",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "jobber-jobs/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/jobber-jobs/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -10,7 +10,7 @@
       "options": {
         "command": "webpack-cli build",
         "args": ["--node-env=production"],
-        "cwd": "jobber-jobs"
+        "cwd": "apps/jobber-jobs"
       },
       "configurations": {
         "development": {
@@ -23,8 +23,8 @@
       "cache": true,
       "executor": "@nx/js:prune-lockfile",
       "outputs": [
-        "{workspaceRoot}/dist/jobber-jobs/package.json",
-        "{workspaceRoot}/dist/jobber-jobs/package-lock.json"
+        "{workspaceRoot}/dist/apps/jobber-jobs/package.json",
+        "{workspaceRoot}/dist/apps/jobber-jobs/package-lock.json"
       ],
       "options": {
         "buildTarget": "build"
@@ -33,7 +33,7 @@
     "copy-workspace-modules": {
       "dependsOn": ["build"],
       "cache": true,
-      "outputs": ["{workspaceRoot}/dist/jobber-jobs/workspace_modules"],
+      "outputs": ["{workspaceRoot}/dist/apps/jobber-jobs/workspace_modules"],
       "executor": "@nx/js:copy-workspace-modules",
       "options": {
         "buildTarget": "build"
