@@ -12,7 +12,7 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "plugins": [
     {
@@ -39,5 +39,23 @@
       },
       "exclude": ["apps/jobber-auth-e2e/**/*", "apps/jobber-jobs-e2e/**/*"]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "build": {
+      "inputs": [
+        "{projectRoot}/**/*",
+        "{workspaceRoot}/lib/**/*",
+        "{workspaceRoot}/proto/*"
+      ],
+      "options": {
+        "assets": [
+          {
+            "glob": "*.proto",
+            "input": "proto",
+            "output": "proto"
+          }
+        ]
+      }
+    }
+  }
 }
