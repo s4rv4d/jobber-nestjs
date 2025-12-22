@@ -22,7 +22,6 @@ export class AuthController implements AuthServiceController {
     request: AuthenticateRequest & { user: TokenPayload },
   ): Promise<User> | Observable<User> | User {
     // extra details are added by passport after validating the token being sent via grpc from jobber-jobs client
-    console.log('from auth controller: \n', request);
     return this.userService.getUser({ id: request.user.userId });
   }
 }

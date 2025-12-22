@@ -36,8 +36,6 @@ export class GqlAuthGuard implements CanActivate, OnModuleInit {
     // gql to normal auth request which is eventually passed to JwtAuthGuard
     const token = this.getRequest(context).cookies?.Authentication;
 
-    this.logger.log('token is: ', token);
-
     if (!token) {
       this.logger.error('No JWT is passed');
       return false;
