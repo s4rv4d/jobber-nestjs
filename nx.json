@@ -44,7 +44,7 @@
     "build": {
       "inputs": [
         "{projectRoot}/**/*",
-        "{workspaceRoot}/lib/**/*",
+        "{workspaceRoot}/libs/**/*",
         "{workspaceRoot}/proto/*"
       ],
       "options": {
