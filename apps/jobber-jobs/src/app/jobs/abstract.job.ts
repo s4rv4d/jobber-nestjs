@@ -1,19 +1,11 @@
-import { OnModuleDestroy } from '@nestjs/common';
 import { Producer } from 'pulsar-client';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { PulsarClient } from '@jobber/pulsar';
 
-export abstract class AbstractJob<T> implements OnModuleDestroy {
+export abstract class AbstractJob<T> {
   private producer: Producer;
 
   constructor(private readonly pulsarClient: PulsarClient) {}
-
-  async onModuleDestroy() {
-    // await this.producer.close();
-    if (this.producer) {
-      await this.producer.close();
-    }
-  }
 
   async execute(data: T, job: string) {
     // first execute by gql resolver

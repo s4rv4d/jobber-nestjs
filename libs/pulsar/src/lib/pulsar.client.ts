@@ -1,7 +1,7 @@
 // use this client to create subsequent producers and consumer
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Client } from 'pulsar-client';
+import { Client, Producer, Consumer, Message } from 'pulsar-client';
 
 @Injectable()
 export class PulsarClient implements OnModuleDestroy {
@@ -12,15 +12,42 @@ export class PulsarClient implements OnModuleDestroy {
     connectionTimeoutMs: 10000,
   });
 
+  private readonly producers: Producer[] = [];
+  private readonly consumers: Consumer[] = [];
+
   constructor(private readonly configService: ConfigService) {}
 
-  async onModuleDestroy() {
-    await this.client.close();
-  }
-
   async createProducer(topic: string) {
-    return this.client.createProducer({
+    const producer = await this.client.createProducer({
       topic,
     });
+
+    this.producers.push(producer);
+
+    return producer;
+  }
+
+  async createConsumer(topic: string, listener: (message: Message) => void) {
+    const consumer = await this.client.subscribe({
+      topic,
+      listener,
+      subscription: 'jobber', // shared subscription, round robin fashion
+    });
+
+    this.consumers.push(consumer);
+
+    return consumer;
+  }
+
+  async onModuleDestroy() {
+    for (const producer of this.producers) {
+      await producer.close();
+    }
+
+    for (const consumer of this.consumers) {
+      await consumer.close();
+    }
+
+    await this.client.close();
   }
 }
