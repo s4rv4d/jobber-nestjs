@@ -12,3 +12,11 @@ services:
       /pulsar/bin/pulsar standalone
     ports:
       - 6650:6650
+    healthcheck:
+      test:
+        ['CMD', 'curl', '-f', 'http://localhost:8080/admin/v2/brokers/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped

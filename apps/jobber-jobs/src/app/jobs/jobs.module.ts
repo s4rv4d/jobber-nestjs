@@ -6,11 +6,14 @@ import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { AUTH_PACKAGE_NAME } from 'types/proto/auth';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { PulsarModule } from '@jobber/pulsar';
 import { join } from 'path';
 
 @Module({
   imports: [
     DiscoveryModule,
+    PulsarModule,
     ClientsModule.register([
       {
         name: AUTH_PACKAGE_NAME,

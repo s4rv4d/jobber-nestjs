@@ -8,6 +8,8 @@ export class PulsarClient implements OnModuleDestroy {
   // since this is going to be imported in jobs, add to env inside jobs
   private readonly client = new Client({
     serviceUrl: this.configService.getOrThrow<string>('PULSAR_SERVICE_URL'),
+    operationTimeoutSeconds: 30,
+    connectionTimeoutMs: 10000,
   });
 
   constructor(private readonly configService: ConfigService) {}
