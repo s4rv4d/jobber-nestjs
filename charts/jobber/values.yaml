@@ -1,0 +1,63 @@
+global:
+  imagePullPolicy: IfNotPresent
+
+pulsar:
+  zookeeper:
+    replicaCount: 1
+    podMonitor:
+      enabled: false
+  broker:
+    replicaCount: 1
+    podMonitor:
+      enabled: false
+  bookkeeper:
+    replicaCount: 1
+    podMonitor:
+      enabled: false
+  proxy:
+    replicaCount: 1
+    podMonitor:
+      enabled: false
+  autorecovery:
+    podMonitor:
+      enabled: false
+  kube-prometheus-stack:
+    enabled: false
+    prometheusOperator:
+      enabled: false
+    grafana:
+      enabled: false
+    alertmanager:
+      enabled: false
+    prometheus:
+      enabled: false
+
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: "latest"
+
+  auth:
+    username: postgres
+    password: postgres
+    database: jobber
+
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+
+jobs:
+  enabled: true
+  replicas: 1
+  image: '039784671346.dkr.ecr.eu-north-1.amazonaws.com/jobber/jobs:latest'
+  port: 3001
