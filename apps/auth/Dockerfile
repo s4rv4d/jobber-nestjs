@@ -25,6 +25,8 @@ RUN npm i @apollo/gateway
 
 RUN apt-get update && apt-get install -y protobuf-compiler
 
+# RUN npx nx build auth --verbose
+ENV NX_VERBOSE_LOGGING=true
 RUN npx nx build auth --verbose
 
 FROM node:22-slim as runner
