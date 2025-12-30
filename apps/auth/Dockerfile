@@ -27,6 +27,10 @@ RUN apt-get update && apt-get install -y protobuf-compiler
 
 # RUN npx nx build auth --verbose
 ENV NX_VERBOSE_LOGGING=true
+
+# Generate Prisma client
+RUN cd apps/auth && npx prisma generate
+
 RUN npx nx build auth --verbose
 
 FROM node:22-slim as runner
