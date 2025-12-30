@@ -7,6 +7,7 @@ import { AUTH_PACKAGE_NAME } from '@jobber/grpc';
 
 import { AppModule } from './app/app.module';
 import { join } from 'path';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -17,6 +18,7 @@ async function bootstrap() {
   app.connectMicroservice<GrpcOptions>({
     transport: Transport.GRPC,
     options: {
+      url: app.get(ConfigService).getOrThrow('AUTH_GRPC_SERVICE_URL'),
       package: AUTH_PACKAGE_NAME,
       protoPath: join(__dirname, '../../libs/grpc/proto/auth.proto'),
     },

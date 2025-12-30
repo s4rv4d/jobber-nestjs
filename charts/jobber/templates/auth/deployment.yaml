@@ -26,7 +26,7 @@ spec:
             {{- include "common.env" . | nindent 12 }}
             - name: PORT
               value: "{{ .Values.auth.port }}"
-            - name: JWT_SCECRET
+            - name: JWT_SECRET
               value: {{ .Values.auth.jwt.secret }}
             - name: JWT_EXPIRATION_MS
               value: "{{ .Values.auth.jwt.expiration }}"
