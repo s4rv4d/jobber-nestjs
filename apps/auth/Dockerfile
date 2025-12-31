@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y protobuf-compiler
 
 # RUN npx nx build auth --verbose
 ENV NX_VERBOSE_LOGGING=true
+ARG DATABASE_URL="postgresql://user:pass@localhost:5432/db"
+ENV DATABASE_URL=$DATABASE_URL
 
 # Generate Prisma client
 RUN cd apps/auth && npx prisma generate
