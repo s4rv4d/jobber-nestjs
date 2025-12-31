@@ -11,6 +11,7 @@ COPY jest.config.ts ./
 COPY jest.preset.js ./
 COPY eslint.config.mjs ./
 COPY webpack.*.config.js ./
+COPY prisma.*.ts ./
 
 COPY apps/auth ./apps/auth
 COPY libs/graphql ./libs/graphql
@@ -45,6 +46,7 @@ COPY --from=builder /workspace/libs/graphql/package.json ./libs/graphql/package.
 COPY --from=builder /workspace/libs/grpc/package.json ./libs/grpc/package.json
 COPY --from=builder /workspace/libs/prisma/package.json ./libs/prisma/package.json
 COPY --from=builder /workspace/apps/auth/prisma ./apps/auth/prisma
+COPY --from=builder /workspace/apps/auth/prisma.config.ts ./apps/auth/prisma.config.t
 COPY --from=builder /workspace/package-lock.json ./
 
 # only install dependencies and not devDependencies
