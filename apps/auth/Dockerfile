@@ -45,8 +45,8 @@ COPY --from=builder /workspace/apps/auth/package.json ./apps/auth/package.json
 COPY --from=builder /workspace/libs/graphql/package.json ./libs/graphql/package.json
 COPY --from=builder /workspace/libs/grpc/package.json ./libs/grpc/package.json
 COPY --from=builder /workspace/libs/prisma/package.json ./libs/prisma/package.json
-COPY --from=builder /workspace/apps/auth/prisma ./apps/auth/prisma
-COPY --from=builder /workspace/apps/auth/prisma.config.ts ./apps/auth/prisma.config.t
+COPY --from=builder /workspace/apps/auth/prisma ./prisma
+COPY --from=builder /workspace/apps/auth/prisma.config.ts ./prisma.config.ts
 COPY --from=builder /workspace/package-lock.json ./
 
 # only install dependencies and not devDependencies
