@@ -17,13 +17,13 @@ spec:
     spec:
       initContainers:
         - name: prisma-migrate
-          workingDir: /app
+          workingDir: /app/apps/auth
           image: {{ .Values.auth.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           command: ["sh", "-c"]
           args:
             - |
-              npx prisma migrate deploy --schema=apps/auth/prisma/schema.prisma
+              npx prisma migrate deploy --schema=prisma/schema.prisma
           env:
             {{- include "common.env" . | nindent 12 }}
       containers: 
