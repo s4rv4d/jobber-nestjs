@@ -23,7 +23,7 @@ import { GqlLoggingPlugin } from '@jobber/graphql';
       driver: ApolloDriver,
       playground: {
         settings: {
-          'request.credentials': 'same-origin',
+          'request.credentials': 'include',
         },
       },
       plugins: [new GqlLoggingPlugin()],
