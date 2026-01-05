@@ -9,11 +9,7 @@ import {
 import { ClientGrpc } from '@nestjs/microservices';
 import { catchError, map, Observable, of } from 'rxjs';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import {
-  AUTH_PACKAGE_NAME,
-  AuthServiceClient,
-  AUTH_SERVICE_NAME,
-} from '@jobber/grpc';
+import { Packages, AuthServiceClient, AUTH_SERVICE_NAME } from '@jobber/grpc';
 
 @Injectable()
 export class GqlAuthGuard implements CanActivate, OnModuleInit {
@@ -21,7 +17,7 @@ export class GqlAuthGuard implements CanActivate, OnModuleInit {
   private authServiceClient: AuthServiceClient;
 
   // inject client which is register via job.module
-  constructor(@Inject(AUTH_PACKAGE_NAME) private client: ClientGrpc) {}
+  constructor(@Inject(Packages.AUTH) private client: ClientGrpc) {}
 
   onModuleInit() {
     // init the service client via the injected client
