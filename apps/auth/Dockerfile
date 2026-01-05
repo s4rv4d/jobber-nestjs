@@ -9,7 +9,7 @@ COPY nx.json ./
 COPY tsconfig*.json ./
 COPY jest.config.ts ./
 COPY jest.preset.js ./
-COPY eslint.config.mjs ./
+COPY .eslintrc.json ./
 COPY webpack.*.config.js ./
 COPY prisma.*.ts ./
 
