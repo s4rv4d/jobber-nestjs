@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { FibonacciJob } from './jobs/fibonacci/fibonacci.job';
+import { LoadProductsJob } from './jobs/products/load-products.job';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
@@ -30,7 +31,7 @@ import { ConfigService } from '@nestjs/config';
       },
     ]),
   ],
-  providers: [FibonacciJob, JobsService, JobsResolver],
+  providers: [FibonacciJob, JobsService, JobsResolver, LoadProductsJob],
   exports: [],
 })
 export class JobsModule {}

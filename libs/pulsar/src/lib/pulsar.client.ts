@@ -20,6 +20,7 @@ export class PulsarClient implements OnModuleDestroy {
   async createProducer(topic: string) {
     // use defual batch config
     const producer = await this.client.createProducer({
+      blockIfQueueFull: true,
       topic,
     });
 

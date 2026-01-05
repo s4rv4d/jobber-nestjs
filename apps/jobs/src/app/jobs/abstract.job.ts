@@ -24,18 +24,19 @@ export abstract class AbstractJob<T extends object> {
     // enables batch send messages
     if (Array.isArray(data)) {
       for (const message of data) {
-        await this.send(message);
+        this.send(message);
       }
       return;
     } else {
-      await this.send(data);
+      this.send(data);
     }
   }
 
-  private async send(data: T) {
-    await this.validateData(data);
-    // messages sent to a buffer, after a timeout the who buffer is offloaded and sent to pulsar cluster
-    await this.producer.send({ data: serialize<T>(data) });
+  private send(data: T) {
+    this.validateData(data).then(() => {
+      // messages sent to a buffer, after a timeout the who buffer is offloaded and sent to pulsar cluster
+      this.producer.send({ data: serialize<T>(data) });
+    });
   }
 
   private async validateData(data: T) {
