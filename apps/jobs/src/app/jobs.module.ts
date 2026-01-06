@@ -5,9 +5,7 @@ import { LoadProductsJob } from './jobs/products/load-products.job';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Packages } from '@jobber/grpc';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { PulsarModule } from '@jobber/pulsar';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
