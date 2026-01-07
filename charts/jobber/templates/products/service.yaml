@@ -10,7 +10,7 @@ spec:
   selector:
     app: products
   ports:
-    - protocol: products
+    - protocol: TCP
       port: {{ .Values.products.port.grpc }}
       targetPort: {{ .Values.products.port.grpc }}
 {{- end }}
