@@ -34,6 +34,8 @@ COPY --from=builder /workspace/package.json ./
 COPY --from=builder /workspace/apps/products/package.json ./apps/products/package.json
 COPY --from=builder /workspace/libs/grpc/package.json ./libs/grpc/package.json
 COPY --from=builder /workspace/package-lock.json ./
+COPY --from=builder /workspace/apps/products/drizzle.config.ts ./apps/products/drizzle.config.ts
+COPY --from=builder /workspace/apps/products/drizzle ./apps/products/drizzle
 
 # only install dependencies and not devDependencies
 ENV NODE_ENV=production
