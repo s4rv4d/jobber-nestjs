@@ -9,6 +9,8 @@ import { Packages } from '@jobber/grpc';
 import { PulsarModule } from '@jobber/pulsar';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
+import { PrismaModule } from './prisma/prisma.module';
+import { JobsController } from './jobs.controller';
 
 @Module({
   imports: [
@@ -28,8 +30,10 @@ import { ConfigService } from '@nestjs/config';
         inject: [ConfigService],
       },
     ]),
+    PrismaModule,
   ],
   providers: [FibonacciJob, JobsService, JobsResolver, LoadProductsJob],
+  controllers: [JobsController],
   exports: [],
 })
 export class JobsModule {}

@@ -4,31 +4,45 @@ import { validate } from 'class-validator';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { PulsarClient, serialize } from '@jobber/pulsar';
 import { BadRequestException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { JobStatus } from '../models/job-status.enum';
 
 export abstract class AbstractJob<T extends object> {
   private producer: Producer;
   // define 'classconstructor'
   protected abstract messageClass: new () => T;
 
-  constructor(private readonly pulsarClient: PulsarClient) {}
+  constructor(
+    private readonly pulsarClient: PulsarClient,
+    private readonly prismaService: PrismaService
+  ) {}
 
-  async execute(data: T, job: string) {
+  async execute(data: T, name: string) {
     // first execute by gql resolver
     // check if producer needs to be init and create producer and send message
     // else send message topic
 
     if (!this.producer) {
-      this.producer = await this.pulsarClient.createProducer(job);
+      this.producer = await this.pulsarClient.createProducer(name);
     }
+
+    const job = await this.prismaService.job.create({
+      data: {
+        name,
+        size: Array.isArray(data) ? data.length : 1,
+        completed: 0,
+        status: JobStatus.IN_PROGRESS,
+      },
+    });
 
     // enables batch send messages
     if (Array.isArray(data)) {
       for (const message of data) {
-        this.send(message);
+        this.send({ ...message, jobId: job.id });
       }
       return;
     } else {
-      this.send(data);
+      this.send({ ...data, jobId: job.id });
     }
   }
 

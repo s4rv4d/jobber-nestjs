@@ -13,12 +13,17 @@ import { JobMetadata } from './interfaces/job-metadata.interface';
 import { AbstractJob } from './jobs/abstract.job';
 import { readFileSync } from 'fs';
 import { UPLOAD_FILE_PATH } from './uploads/upload';
+import { PrismaService } from './prisma/prisma.service';
+import { JobStatus } from './models/job-status.enum';
 
 @Injectable()
 export class JobsService implements OnModuleInit {
   private jobs: DiscoveredClassWithMeta<JobMetadata>[] = [];
 
-  constructor(private readonly discoveryService: DiscoveryService) {}
+  constructor(
+    private readonly discoveryService: DiscoveryService,
+    private readonly prismaService: PrismaService
+  ) {}
 
   async onModuleInit() {
     this.jobs = await this.discoveryService.providersWithMetaAtKey<JobMetadata>(
@@ -49,6 +54,41 @@ export class JobsService implements OnModuleInit {
     );
 
     return job.meta;
+  }
+
+  async acknowledge(jobId: number) {
+    const job = await this.prismaService.job.findUnique({
+      where: {
+        id: jobId,
+      },
+    });
+
+    if (!job) {
+      throw new BadRequestException(`Not job exist with this ID: ${jobId}`);
+    }
+
+    if (job.endedAt) {
+      return;
+    }
+
+    const updatedJob = await this.prismaService.job.update({
+      where: { id: jobId },
+      data: {
+        completed: { increment: 1 },
+      },
+    });
+
+    if (updatedJob.completed === job.size) {
+      await this.prismaService.job.update({
+        where: { id: jobId },
+        data: {
+          status: JobStatus.COMPLETED,
+          endedAt: new Date(),
+        },
+      });
+    }
+
+    return updatedJob;
   }
 
   private getFile(fileName?: string) {

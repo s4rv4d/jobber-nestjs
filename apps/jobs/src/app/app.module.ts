@@ -9,6 +9,7 @@ import {
 } from '@jobber/graphql';
 import { LoggerModule } from '@jobber/nestjs';
 import { GqlLoggingPlugin } from '@jobber/graphql';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { GqlLoggingPlugin } from '@jobber/graphql';
       autoSchemaFile: true,
       context: ({ req, res }) => ({ req, res }), // pass express req and res to context
     }),
+    PrismaModule,
   ],
 })
 export class AppModule {}
