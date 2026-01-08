@@ -17,13 +17,12 @@ spec:
     spec:
       initContainers:
         - name: prisma-migrate
-          workingDir: /app/apps/jobs
           image: {{ .Values.jobs.image }}
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
           command: ["sh", "-c"]
           args:
             - |
-              npx prisma migrate deploy --schema=prisma/schema.prisma
+              cd apps/jobs && npx prisma migrate deploy
           env:
             {{- include "common.env" . | nindent 12 }}
             - name: DATABASE_URL

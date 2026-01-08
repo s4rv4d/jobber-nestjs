@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "@golevelup/nestjs-discovery": "^4.0.1",
-    "graphql-type-json": "^0.3.2"
+    "graphql-type-json": "^0.3.2",
+    "@prisma/adapter-pg": "^7.2.0"
   },
   "devDependencies": {
     "@types/multer": "^2.0.0"
