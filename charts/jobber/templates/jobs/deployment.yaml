@@ -46,7 +46,7 @@ spec:
             - name: DATABASE_URL
               value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/jobs
             - name: JOBS_GRPC_SERVICE_URL
-              value: 'jobs-grpc:{{ .Values.jobs.port.grpc }}'
+              value: '0.0.0.0:{{ .Values.jobs.port.grpc }}'
       volumes:
         - name: uploads-volume
           persistentVolumeClaim:

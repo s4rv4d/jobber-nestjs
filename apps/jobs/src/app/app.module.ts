@@ -22,6 +22,7 @@ import { PrismaModule } from './prisma/prisma.module';
     JobsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      useGlobalPrefix: true,
       plugins: [new GqlLoggingPlugin()],
       playground: {
         settings: {
