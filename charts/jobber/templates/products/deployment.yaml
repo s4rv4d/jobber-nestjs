@@ -27,7 +27,7 @@ spec:
           env:
             {{- include "common.env" . | nindent 12 }}
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/products
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/products
       containers: 
         - name: products
           image: {{ .Values.products.image }}
@@ -42,5 +42,5 @@ spec:
             - name: PRODUCTS_GRPC_SERVICE_URL
               value: '0.0.0.0:{{ .Values.products.port.grpc }}'
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/products
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/products
 {{- end }}

@@ -27,7 +27,7 @@ spec:
           env:
             {{- include "common.env" . | nindent 12 }}
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/auth
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/auth
       containers: 
         - name: auth
           image: {{ .Values.auth.image }}
@@ -46,5 +46,5 @@ spec:
             - name: AUTH_GRPC_SERVICE_URL
               value: '0.0.0.0:{{ .Values.auth.port.grpc }}'
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/auth
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/auth
 {{- end }}

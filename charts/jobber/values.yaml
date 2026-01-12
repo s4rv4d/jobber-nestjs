@@ -1,7 +1,15 @@
 global:
   imagePullPolicy: Always
 
+ingress:
+  alb: false
+
+persistence:
+  ebs: false
+
 pulsar:
+  namespace: pulsar
+  namespaceCreate: true
   components:
     proxy: false
   zookeeper:
@@ -34,6 +42,8 @@ pulsar:
       enabled: false
 
 postgresql:
+  namespaceOverride: postgresql
+  
   image:
     registry: docker.io
     repository: bitnami/postgresql

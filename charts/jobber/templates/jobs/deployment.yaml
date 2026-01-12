@@ -26,7 +26,7 @@ spec:
           env:
             {{- include "common.env" . | nindent 12 }}
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/jobs
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/jobs
       containers: 
         - name: jobs
           image: {{ .Values.jobs.image }}
@@ -44,7 +44,7 @@ spec:
             - name: PORT
               value: "{{ .Values.jobs.port.http }}"
             - name: DATABASE_URL
-              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.jobber.svc.cluster.local:5432/jobs
+              value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/jobs
             - name: JOBS_GRPC_SERVICE_URL
               value: '0.0.0.0:{{ .Values.jobs.port.grpc }}'
       volumes:
