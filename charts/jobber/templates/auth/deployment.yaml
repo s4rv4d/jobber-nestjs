@@ -47,4 +47,6 @@ spec:
               value: '0.0.0.0:{{ .Values.auth.port.grpc }}'
             - name: DATABASE_URL
               value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/auth
+            - name: COOKIE_SECURE
+              value: {{ .Values.auth.jwt.secure }}
 {{- end }}

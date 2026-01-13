@@ -27,7 +27,7 @@ export class AuthService {
     response.cookie('Authentication', accessToken, {
       httpOnly: true,
       expires,
-      secure: this.configService.getOrThrow('NODE_ENV') === 'production',
+      secure: !!this.configService.getOrThrow('COOKIE_SECURE'),
     });
     return user;
   }

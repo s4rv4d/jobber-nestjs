@@ -96,6 +96,7 @@ auth:
   jwt:
     secret: 'eg77Jz2V32r2MgyHaYD9DCYQ1o28eLjU'
     expiration: "28800000"
+    secure: false
 
 products:
   enabled: true

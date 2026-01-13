@@ -4,6 +4,10 @@ ingress:
 persistence:
   ebs: true
 
+auth:
+  jwt:
+    secure: true
+
 pulsar:
   global:
     storageClass: "ebs-sc"
