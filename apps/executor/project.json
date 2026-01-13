@@ -49,6 +49,7 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
+        "port": 9231,
         "buildTarget": "executor:build",
         "runBuildTargetDependencies": false
       },

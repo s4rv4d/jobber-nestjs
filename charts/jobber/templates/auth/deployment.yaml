@@ -41,12 +41,14 @@ spec:
               value: "{{ .Values.auth.port.http }}"
             - name: JWT_SECRET
               value: {{ .Values.auth.jwt.secret }}
+            {{- if .Values.auth.jwt.secure }}
+            - name: COOKIE_SECURE
+              value: "{{ .Values.auth.jwt.secure }}"
+            {{- end }}
             - name: JWT_EXPIRATION_MS
               value: "{{ .Values.auth.jwt.expiration }}"
             - name: AUTH_GRPC_SERVICE_URL
               value: '0.0.0.0:{{ .Values.auth.port.grpc }}'
             - name: DATABASE_URL
               value: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql.postgresql.svc.cluster.local:5432/auth
-            - name: COOKIE_SECURE
-              value: {{ .Values.auth.jwt.secure }}
 {{- end }}
