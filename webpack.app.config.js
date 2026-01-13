@@ -1,12 +1,6 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 
 module.exports = {
-  output: {
-    clean: true,
-    ...(process.env.NODE_ENV !== 'production' && {
-      devtoolModuleFilenameTemplate: '[absolute-resource-path]',
-    }),
-  },
   plugins: [
     new NxAppWebpackPlugin({
       target: 'node',
